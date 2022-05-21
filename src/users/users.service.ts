@@ -20,4 +20,14 @@ export class UsersService {
         return this.repo.findOneBy({id});
     }
 
+    // The 'find' funtion returns all users that have same email
+    find( myEmail: string){
+        return this.repo.find({
+            where : {
+                email: myEmail,
+            },
+        });
+    }
+
+
 }
