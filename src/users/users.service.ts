@@ -15,4 +15,9 @@ export class UsersService {
         return this.repo.save(user);
     }
 
+    // The 'findOne' function finds a single entry using id only
+    findOne(id: number){
+        return this.repo.findOneBy({id});
+    }
+
 }

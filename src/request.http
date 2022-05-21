@@ -1,3 +1,5 @@
+
+### signup new user
 POST http://localhost:3000/auth/signup/
 content-type: application/json
 
@@ -5,3 +7,6 @@ content-type: application/json
     "email": "my2@gm.com",
     "password": "5678"
 }
+
+### Find user with specific id
+GET http://localhost:3000/auth/3

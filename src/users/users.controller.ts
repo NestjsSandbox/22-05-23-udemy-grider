@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, NotFoundException, Param, Post } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create.user.dto';
 import { UsersService } from './users.service';
 
@@ -12,4 +12,14 @@ export class UsersController {
         //console.log('The body content is : ', body);
         this.userService.create(body.email, body.password);
     }
+
+    @Get('/:id')
+    async findUser(@Param('id') idString: string ){
+        const user = await this.userService.findOne(parseInt(idString));
+        if (!user) {
+            throw new NotFoundException(`Did not find user id=${idString}.` );
+        }
+        return user;
+    }
+
 }
