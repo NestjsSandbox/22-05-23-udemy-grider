@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ReplaySubject } from 'rxjs';
 import { ReportsService } from 'src/reports/reports.service';
@@ -29,5 +29,13 @@ export class UsersService {
         });
     }
 
-
+        // The 'update' function updats some properties in user db
+    async update(id: number, attrs: Partial<User>){
+        const user = await this.findOne(id);
+        if (!user) {
+            throw new NotFoundException(`Did not find user id=${id}.` );
+        }
+        Object.assign(user,attrs);
+        return this.repo.save(user);
+    }
 }

@@ -13,3 +13,11 @@ GET http://localhost:3000/auth/3
 
 ### Find all users with same email
 GET http://localhost:3000/auth/?email=my1@gm.com
+
+### Update a specific user with some of its properties
+PATCH http://localhost:3000/auth/1
+content-type: application/json
+
+{
+    "password": "5678"
+}
