@@ -38,4 +38,13 @@ export class UsersService {
         Object.assign(user,attrs);
         return this.repo.save(user);
     }
+
+    // The remove function delete the specific entity
+    async remove(id: number){
+        const user = await this.findOne(id);
+        if (!user) {
+            throw new NotFoundException(`Did not find user id=${id}.` );
+        }
+        return this.repo.remove(user);
+    }
 }

@@ -21,3 +21,6 @@ content-type: application/json
 {
     "password": "5678"
 }
+
+### Delete a user 
+DELETE http://localhost:3000/auth/2
