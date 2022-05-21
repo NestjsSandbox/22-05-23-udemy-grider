@@ -6,6 +6,6 @@ export class UsersController {
 
     @Post('/signup')
     createUser(@Body() body: CreateUserDto){
-        console.log('The body content is : ' + body);
+        console.log('The body content is : ', body);
     }
 }
