@@ -5,6 +5,8 @@ import { UpdateUserDto } from './dtos/update.user.dto';
 import { UserDto } from './dtos/user.dto';
 import { Serialize } from 'src/interceptors/serialize.interceptor';
 import { AuthService } from './auth.service';
+import { UseGuards } from '@nestjs/common';
+import { AuthGuard } from 'src/guards/auth.guards';
 
 @Controller('auth')
 @Serialize(UserDto)
@@ -42,6 +44,7 @@ export class UsersController {
     }
 
     @Get('/whoami')
+    @UseGuards(AuthGuard)
     whoAmI(@Session() session: any){
         console.log(`session.userId = ${session.userId}`);
         

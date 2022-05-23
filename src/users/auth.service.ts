@@ -37,9 +37,7 @@ export class AuthService{
         const signableUser = this.userService.create(email, encryptPassword);
         console.log(`The signup processEmail for email "${email}" completed. Welcome new user. `);
 
-
         return signableUser;
-
     }//end of signup function
 
 
