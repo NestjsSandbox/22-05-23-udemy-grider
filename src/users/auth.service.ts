@@ -35,7 +35,6 @@ export class AuthService{
 
         //### Now that the password is ready we can create & save the new user in db
         const signableUser = this.userService.create(email, encryptPassword);
-
         console.log(`The signup processEmail for email "${email}" completed. Welcome new user. `);
 
 
@@ -67,7 +66,7 @@ export class AuthService{
             throw new BadRequestException('Cant signin, wrong credentials.');
         }
 
-        //Case of successful login
-
+        //From this line onward is the case of successful login
+        return(user);
     }//end of signin function
 }

@@ -12,11 +12,17 @@ export class UsersService {
     //The 'create' function creates a new user entry in the db
     create(email: string, password: string){
         const user = this.repo.create({email, password});
-        return this.repo.save(user);
+        this.repo.save(user);
+        return user;
     }
 
     // The 'findOne' function finds a single entry using id only
     findOne(id: number){
+        console.log(`findOne(id: number) = ${id}`);
+        if (!id){
+            console.log(`Case of id is null we return null: findOne(id: number) id = ${id}`);
+            return null;
+        }
         return this.repo.findOneBy({id});
     }
 

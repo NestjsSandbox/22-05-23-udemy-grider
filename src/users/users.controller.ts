@@ -1,8 +1,7 @@
-import { Body, Controller, Delete, Get, NotFoundException, Param, Patch, Post, Query, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, NotFoundException, Param, Patch, Post, Query, Session, UseInterceptors } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create.user.dto';
 import { UsersService } from './users.service';
 import { UpdateUserDto } from './dtos/update.user.dto';
-import { SerializeInterceptor } from 'src/interceptors/serialize.interceptor';
 import { UserDto } from './dtos/user.dto';
 import { Serialize } from 'src/interceptors/serialize.interceptor';
 import { AuthService } from './auth.service';
@@ -18,17 +17,41 @@ export class UsersController {
 
 
     @Post('/signin')
-    signin(@Body() body: CreateUserDto){
-        return(this.authService.signin(body.email, body.password));
+    async signin(@Body() body: CreateUserDto, @Session() session: any){
+        const user = await this.authService.signin(body.email, body.password);
+        session.userId = user.id;
+        return(user);
     }
 
 
     @Post('/signup')
-    createUser(@Body() body: CreateUserDto){
-        return this.authService.signup(body.email, body.password);
+    async createUser(@Body() body: CreateUserDto, @Session() session: any){
+        const user =  await this.authService.signup(body.email, body.password);
+        console.log(`user = `, user);
+        session.userId = user.id;
+        return user;
         //console.log('The body content is : ', body);
         // 2022-05-23-0628 this.userService.create(body.email, body.password);
     }
+
+    @Get('/signout')
+    signOut(@Session() session: any){
+       // console.log(`Signing out of user = `, session.userId);
+
+        session.userId = null;
+    }
+
+    @Get('/whoami')
+    whoAmI(@Session() session: any){
+        console.log(`session.userId = ${session.userId}`);
+        
+        if (!session.userId){
+            console.log('No user is logged in.');
+            return null;
+        }
+        return this.userService.findOne(session.userId);
+    }
+
 
     @Get('/:id')
     async findUser(@Param('id') idString: string ){
