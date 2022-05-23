@@ -1,4 +1,14 @@
 
+### signin an existing user
+POST http://localhost:3000/auth/signin/
+content-type: application/json
+
+{
+    "email": "my4@gm.com",
+    "password": "1234"
+}
+
+
 ### signup new user
 POST http://localhost:3000/auth/signup/
 content-type: application/json

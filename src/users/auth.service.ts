@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from "@nestjs/common";
+import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import { randomBytes, scrypt } from "crypto";
 import { promisify } from "util";
 import { UsersService } from "./users.service";
@@ -41,6 +41,33 @@ export class AuthService{
 
         return signableUser;
 
+    }//end of signup function
 
-    }
+
+    async signin(email: string, password: string){
+        //Step-1: find the user in db
+        const [user] = await this.userService.find(email);
+
+        if (!user){
+            throw new NotFoundException(`The user with email "${email}" was not found`);
+        }
+
+        console.log(`Success logging in by user with email "${email}" .`);
+
+        //Step-2: Extract the salt and recreate the hash salt+password
+        const [salt, storedHash] = user.password.split('.');
+
+        const recreatedHash = (await promisfyScrypt(password,salt,32)) as Buffer;
+
+        //Step-3: Validate the the storedHash is same as the recreated hash
+        if (storedHash !== recreatedHash.toString('hex')){
+
+            console.log(`Failed to login by user with email "${email}" .`);
+
+            throw new BadRequestException('Cant signin, wrong credentials.');
+        }
+
+        //Case of successful login
+
+    }//end of signin function
 }
