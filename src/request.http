@@ -19,6 +19,9 @@ content-type: application/json
 }
 
 
+### Whoami2
+GET http://localhost:3000/auth/whoami2
+
 ### Whoami
 GET http://localhost:3000/auth/whoami
 

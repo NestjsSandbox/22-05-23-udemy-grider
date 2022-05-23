@@ -7,6 +7,7 @@ import { Serialize } from 'src/interceptors/serialize.interceptor';
 import { AuthService } from './auth.service';
 import { UseGuards } from '@nestjs/common';
 import { AuthGuard } from 'src/guards/auth.guards';
+import { CurrentUser } from './decorators/current-user.decorator';
 
 @Controller('auth')
 @Serialize(UserDto)
@@ -43,9 +44,14 @@ export class UsersController {
         session.userId = null;
     }
 
+    @Get('/whoami2')
+    whoAmI2(@Session() session: any, @CurrentUser() user: string){
+        return user;
+    }
+
     @Get('/whoami')
     @UseGuards(AuthGuard)
-    whoAmI(@Session() session: any){
+    whoAmI(@Session() session: any, @CurrentUser() user: string){
         console.log(`session.userId = ${session.userId}`);
         
         if (!session.userId){
