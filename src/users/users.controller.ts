@@ -5,17 +5,22 @@ import { UpdateUserDto } from './dtos/update.user.dto';
 import { SerializeInterceptor } from 'src/interceptors/serialize.interceptor';
 import { UserDto } from './dtos/user.dto';
 import { Serialize } from 'src/interceptors/serialize.interceptor';
+import { AuthService } from './auth.service';
 
 @Controller('auth')
 @Serialize(UserDto)
 export class UsersController {
 
-    constructor(private userService: UsersService){}
+    constructor(
+        private userService: UsersService,
+        private authService: AuthService
+        ){}
 
     @Post('/signup')
     createUser(@Body() body: CreateUserDto){
+        return this.authService.signup(body.email, body.password);
         //console.log('The body content is : ', body);
-        this.userService.create(body.email, body.password);
+        // 2022-05-23-0628 this.userService.create(body.email, body.password);
     }
 
     @Get('/:id')
