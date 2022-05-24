@@ -8,6 +8,7 @@ import { AuthService } from './auth.service';
 import { UseGuards } from '@nestjs/common';
 import { AuthGuard } from 'src/guards/auth.guards';
 import { CurrentUser } from './decorators/current-user.decorator';
+import { User } from './users.entity';
 
 @Controller('auth')
 @Serialize(UserDto)
@@ -45,7 +46,7 @@ export class UsersController {
     }
 
     @Get('/whoami2')
-    whoAmI2(@Session() session: any, @CurrentUser() user: string){
+    whoAmI2(@Session() session: any, @CurrentUser() user: User){
         return user;
     }
 
