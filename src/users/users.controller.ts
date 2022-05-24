@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, NotFoundException, Param, Patch, Post, Query, Session, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, NotFoundException, Param, Patch, Post, Query, Session } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create.user.dto';
 import { UsersService } from './users.service';
 import { UpdateUserDto } from './dtos/update.user.dto';
@@ -45,22 +45,23 @@ export class UsersController {
         session.userId = null;
     }
 
-    @Get('/whoami2')
+    @Get('/whoami')
+    @UseGuards(AuthGuard)
     whoAmI2(@Session() session: any, @CurrentUser() user: User){
         return user;
     }
 
-    @Get('/whoami')
-    @UseGuards(AuthGuard)
-    whoAmI(@Session() session: any, @CurrentUser() user: string){
-        console.log(`session.userId = ${session.userId}`);
+    // @Get('/whoami')
+    // @UseGuards(AuthGuard)
+    // whoAmI(@Session() session: any, @CurrentUser() user: string){
+    //     console.log(`session.userId = ${session.userId}`);
         
-        if (!session.userId){
-            console.log('No user is logged in.');
-            return null;
-        }
-        return this.userService.findOne(session.userId);
-    }
+    //     if (!session.userId){
+    //         console.log('No user is logged in.');
+    //         return null;
+    //     }
+    //     return this.userService.findOne(session.userId);
+    // }
 
 
     @Get('/:id')
