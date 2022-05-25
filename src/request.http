@@ -25,16 +25,26 @@ GET http://localhost:3000/auth/whoami
 GET http://localhost:3000/auth/signout
 
 
+### Set approve state
+PATCH http://localhost:3000/reports/10
+content-type: application/json
+
+{
+    "approved": false
+}
+
 ### Create a new report
 POST http://localhost:3000/reports
 content-type: application/json
 
 {
-    "make": "Toyota",
+    "make": "Chevy",
 
-    "model": "Heliux",
+    "approved": false,
+
+    "model": "G7",
     
-    "year": 2018,
+    "year": 2009,
     
     "milage": 55544,
 

@@ -3,7 +3,7 @@ import { IsString,
          Min,
          Max,
          IsLongitude,
-         IsLatitude
+         IsLatitude,
  } from "class-validator";  
 
  export class CreateReportDto{
