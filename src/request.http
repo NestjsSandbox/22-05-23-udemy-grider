@@ -30,19 +30,19 @@ POST http://localhost:3000/reports
 content-type: application/json
 
 {
-    "make": "Honda",
+    "make": "Toyota",
 
-    "model": "lala",
+    "model": "Heliux",
     
-    "year": 2014,
+    "year": 2018,
     
-    "milage": 6000,
+    "milage": 55544,
 
     "lng": 34.235,
     
     "lat": 30.656,
     
-    "price": 78000
+    "price": 89000
 
 }
 
