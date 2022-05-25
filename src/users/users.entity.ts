@@ -1,4 +1,8 @@
-import { Column, PrimaryGeneratedColumn, Entity, AfterInsert, AfterUpdate, AfterRemove  } from "typeorm";
+import { Report } from "src/reports/report.entity";
+import { Column, PrimaryGeneratedColumn, Entity,
+         AfterInsert, AfterUpdate, AfterRemove,
+         OneToMany
+       } from "typeorm";
 
 @Entity()
 export class User{
@@ -10,6 +14,9 @@ export class User{
 
     @Column()
     password: string;
+
+    @OneToMany( () => Report, (report) => report.user )
+    reports: Report[];
 
     @AfterInsert()
     logInsert(){

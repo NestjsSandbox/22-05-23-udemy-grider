@@ -4,7 +4,7 @@ POST http://localhost:3000/auth/signup/
 content-type: application/json
 
 {
-    "email": "my8@gm.com",
+    "email": "my3@gm.com",
     "password": "1234"
 }
 
@@ -13,7 +13,7 @@ POST http://localhost:3000/auth/signin/
 content-type: application/json
 
 {
-    "email": "my5@gm.com",
+    "email": "my3@gm.com",
     "password": "1234"
 }
 
@@ -30,19 +30,19 @@ POST http://localhost:3000/reports
 content-type: application/json
 
 {
-    "make": "Ford",
+    "make": "Honda",
 
-    "model": "gx-5",
+    "model": "lala",
     
-    "year": 2013,
+    "year": 2014,
     
-    "milage": 15000,
+    "milage": 6000,
 
     "lng": 34.235,
     
     "lat": 30.656,
     
-    "price": 34000
+    "price": 78000
 
 }
 
