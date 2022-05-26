@@ -13,7 +13,7 @@ POST http://localhost:3000/auth/signin/
 content-type: application/json
 
 {
-    "email": "my5@gm.com",
+    "email": "my4@gm.com",
     "password": "1234"
 }
 
@@ -26,34 +26,29 @@ GET http://localhost:3000/auth/signout
 
 
 ### Set approve state
-PATCH http://localhost:3000/reports/10
+PATCH http://localhost:3000/reports/15
 content-type: application/json
 
 {
-    "approved": false
+    "approved": true
 }
+
+### Get estimation for query car type
+GET http://localhost:3000/reports?make=Ford&model=Mustang&year=1981&lng=45.6&lat=45.2&milage=40000
+
 
 ### Create a new report
 POST http://localhost:3000/reports
 content-type: application/json
 
 {
-    "make": "Chevy",
-
-    "approved": false,
-
-    "model": "G7",
-    
-    "year": 2009,
-    
-    "milage": 55544,
-
-    "lng": 34.235,
-    
-    "lat": 30.656,
-    
-    "price": 89000
-
+    "make": "Ford",
+    "model": "Mustang",
+    "year": 1982,
+    "milage": 45000,
+    "lng": 45.6,
+    "lat": 45.2,
+    "price": 20000
 }
 
 
