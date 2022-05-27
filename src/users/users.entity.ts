@@ -1,4 +1,4 @@
-import { Report } from "src/reports/report.entity";
+import { Report } from "../reports/report.entity";
 import { Column, PrimaryGeneratedColumn, Entity,
          AfterInsert, AfterUpdate, AfterRemove,
          OneToMany
