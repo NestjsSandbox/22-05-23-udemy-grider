@@ -25,7 +25,9 @@ describe('UsersController', () => {
     };
 
     fakeAuthService = {
-      // signin: async () => {},
+       signin: async (email: string, password: string) => {
+          return Promise.resolve({ id: 1, email, password } as User);
+       },
       // signup: async () => {},
     }
 
@@ -71,5 +73,19 @@ describe('UsersController', () => {
     .rejects
     .toThrow( NotFoundException );  
     
+  });
+
+  it ('signin updates a session and returns a user object', async () => {
+
+    const session = {userId: -10};  //We give an arbitrary number as long as its not 1
+    // the fakeAuthService will assign a value "1" for the session object.
+
+    const user = await controller.signin(
+      {email: 'a', password: 'b'}
+      , session
+       );
+    expect(user.id).toEqual(1);
+    expect(session.userId).toEqual(1);
+
   });
 });
