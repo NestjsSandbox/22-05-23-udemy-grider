@@ -59,7 +59,7 @@ export class AuthService{
         //Step-3: Validate the the storedHash is same as the recreated hash
         if (storedHash !== recreatedHash.toString('hex')){
 
-            console.log(`Failed to login by user with email "${email}" .`);
+            console.log(`Failed to login by user password.`);
 
             throw new BadRequestException('Cant signin, wrong credentials.');
         }
