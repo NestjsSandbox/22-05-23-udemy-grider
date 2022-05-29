@@ -85,16 +85,10 @@ it ('can signup : create a new user given an email with a salted & hashed passwo
 //---------
 it ('throws an error if the signup user email already exists',
         async  () => {
-
-            //First we redefine the find method so that it returns something other than an empty array. The find method in the beforeEach returns an empty aray but we need the array returned to have at least one User object so that the signup will throw an error thus simulating a case where at least one user with same email already exists.
-            fakeUsersService.find = () => 
-                Promise.resolve([{id: 1, email: 'a', password: 'b'} as User]);
-
-            //The we use the await on the expect function together with 'rejects.toThrow' options
-            await expect(service.signin("me@email.com", "lala"))
+            await service.signup('tst2@email.com','tst2pswrd');
+            await expect(service.signup('tst2@email.com','tst2pswrd'))
                 .rejects
                 .toThrow( BadRequestException );
-            
         }
    );
 
@@ -112,18 +106,12 @@ describe('\n   --- Testing signin ---', () => {
     });
 
     it ('it throws if an invalid password is given', async () => {
+        await service.signup('tst3@email.com','lala');
 
-        fakeUsersService.find = () => 
-        Promise.resolve([{email: 'a', password: 'b'} as User]);
-
-        //No matter what value we use in the signin arguments, the result is always succes for the email and fail for the password (we want it to fail for the password).
-        //The reason regarding the 'email' is that the find doesnt care about the value content, only that a value exists.
-        //The reason the password will always fail is that the password is salt.hash and we cant just guess it.
-        await expect(service.signin("anything", "someSalt.someHash"))
+        await expect(service.signin('tst3@email.com','tst4pswrd'))
         .rejects
         //.toThrow( NotFoundException );  //You can verify if the test works by uncommeting this
         .toThrow( BadRequestException );  
-
     });
 
     it ('it returns a user if a valid password is given', async () => {
@@ -135,7 +123,6 @@ describe('\n   --- Testing signin ---', () => {
         expect(user).toBeDefined();
 
     });
-
 
 });//end --- Testing signin ---
 
