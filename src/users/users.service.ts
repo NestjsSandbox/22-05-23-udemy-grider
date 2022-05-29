@@ -10,8 +10,10 @@ export class UsersService {
     //The 'create' function creates a new user entry in the db
     create(email: string, password: string){
         const user = this.repo.create({email, password});
-        this.repo.save(user);
-        return user;
+        return this.repo.save(user);
+        //The value returned from "save" is of type Promise<User>.
+        // So whoever calls the "create" function needs to use async-await.
+    
     }
 
     // The 'findOne' function finds a single entry using id only
