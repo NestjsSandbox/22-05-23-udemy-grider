@@ -17,8 +17,9 @@ describe('\n =====  Authentication e2e testing  ====', () => {
 
   it('can signup a new user', () => {
 
-    const testEmail='my2@gm.com';
+    const testEmail='my11@g.com';
     const testPassword='1234';
+
 
     return request(app.getHttpServer())
       .post('/auth/signup')
@@ -30,4 +31,5 @@ describe('\n =====  Authentication e2e testing  ====', () => {
         expect(email).toEqual(testEmail)
       })
   });
+ 
 });
