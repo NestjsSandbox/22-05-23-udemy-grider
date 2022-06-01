@@ -17,19 +17,21 @@ const cookieSession = require('cookie-session'); //cannot use 'import' for cooki
       envFilePath: `.env.${process.env.NODE_ENV}`
     }),
 
-    TypeOrmModule.forRoot(),
+    // TypeOrmModule.forRoot(), this runs the ormconfig.js file, but I renamed it so
+    // that it wont be used, TypeOrm new version has changed alot so I cant
+    // use Stephen Grider tutorial for this.
 
-    // TypeOrmModule.forRootAsync({
-    //   inject: [ConfigService],
-    //   useFactory: (config: ConfigService) => {
-    //     return {
-    //       type: 'sqlite',
-    //       database: config.get<string>('DB_NAME'),
-    //       entities: [User, Report], // Report entity added so that typeorm knows it exists
-    //       synchronize: true
-    //     }
-    //   }
-    // }),
+    TypeOrmModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => {
+        return {
+          type: 'sqlite',
+          database: config.get<string>('DB_NAME'),
+          entities: [User, Report], // Report entity added so that typeorm knows it exists
+          synchronize: true
+        }
+      }
+    }),
 
     UsersModule,
 
