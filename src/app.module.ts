@@ -37,10 +37,10 @@ const cookieSession = require('cookie-session'); //cannot use 'import' for cooki
 
     ReportsModule], //end of 'imports' array value
 
-  controllers: [AppController],
+  //controllers: [AppController],
 
   providers: [
-    AppService,
+   // AppService,
     {
       provide: APP_PIPE,
       useValue: new ValidationPipe({whitelist: true}),
